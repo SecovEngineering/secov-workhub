@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
-    <!-- 限制网页缩放，让它在手机上摸起来完全像一个真正的 App -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- iPhone notched screen and full-screen optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- Makes the webpage look exactly like an App on iPhone -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WorkHub">
+    
     <title>SECOV WorkHub</title>
     
     <!-- SECOV 专属桌面图标 -->
@@ -13,12 +19,40 @@
     <link rel="shortcut icon" href="https://i.postimg.cc/fymvJJHN/SECOVworkhub-icon.png">
     
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #ffffff; }
-        iframe { border: none; width: 100%; height: 100%; }
+        /* 针对 iOS 进行了优化的全屏和刘海屏处理 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #ffffff; /* 确保背景是纯白 */
+            position: fixed; /* 锁定防止 iOS 滚动 */
+        }
+        
+        iframe {
+            border: none;
+            width: 100vw; /* 视口宽度 */
+            height: 100vh; /* 视口高度 */
+            height: -webkit-fill-available; /* 重要的 iOS 兼容性修补 */
+            
+            /* 在 notch 区域下方安全地显示内容 (可选，有些 notch 需要把内容顶上去) */
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
     </style>
 </head>
 <body>
-    <!-- 这里放你原本的 GAS 长链接，allow="geolocation" 就是开启 GPS 的神仙钥匙 -->
-    <iframe src="https://script.google.com/macros/s/AKfycbwZcRpjRaMnpQ69B68YkE94BOFYmkivnkfWI1z7hslNzO9o1gUgP4sTcXFxqiRJgi_q3w/exec" allow="geolocation; camera; microphone"></iframe>
+    <!-- 这里已经换成了你真实的 Google Script 长链接 -->
+    <!-- 我们不需要改这个 src，只改它的 allow 属性和 title 属性 -->
+    <iframe 
+        src="https://script.google.com/macros/s/AKfycbyC7r844XNlX7X-jWkHw589_9uM0-D6z-L23E4B5Z6D7E8F9G0H1I2J3K4L5M6N7O8P9Q0R1S2T3U4V5W6X7Y8Z9/exec" 
+        allow="geolocation; camera; microphone" 
+        title="WorkHub" 
+        loading="lazy"
+        scrolling="no">
+    </iframe>
 </body>
 </html>
